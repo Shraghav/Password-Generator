@@ -32,21 +32,39 @@ const passwordSchema = new mongoose.Schema({
 const Password = mongoose.model('values', passwordSchema);
 
 // Routes
-app.get('/api/hello', (req, res) => {
-    res.json({ message: 'Hello from the backend!' });
-});
-
-app.post('/api/submitData', async (req, res) => {
-    const { password, label } = req.body;
-
+//sample
+app.get('/getData/:label', async(req, res) => {
+    const { label } = req.params;
+    const { password } = req.body;
     try {
-        const newPassword = new Password({ password, label });
-        await newPassword.save();
-        res.status(201).json({ message: 'Password saved successfully.' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error saving password.', error });
+        const findLabel = await Password.find({ label: label });
+        res.json({ password: findLabel[0].password });
+    }
+    catch (error) {
+        console.log(error);
     }
 });
+
+//submit data
+app.put('/submitData/:label', async (req, res) => {
+    const { label } = req.params;
+    const { password } = req.body;
+    try {
+        const updatedPassword = await Password.findOneAndUpdate(
+            { label: label },
+            { password: password },
+            { new: true, runValidators: true }
+        );
+        if (!updatedPassword) {
+            const newPassword = new Password({ password, label });
+            await newPassword.save();
+        }
+        res.status(200).json({ message: 'Password updated successfully.', updatedPassword });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating password.', error });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

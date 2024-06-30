@@ -4,7 +4,6 @@ import axios from 'axios';
 const PasswordPostResult = () => {
     const [passwordLength, setPasswordLength] = useState(8);
     const [includeSpecialChars, setIncludeSpecialChars] = useState(true);
-    // const [passwordHistory, setPasswordHistory] = useState([]);
     const [passwordCurrent, setPasswordCurrent] = useState([]);
     const [label, setLabel] = useState('');
 
@@ -31,14 +30,14 @@ const PasswordPostResult = () => {
         }
     };
     return (
-        <div className="container">
-            <h1>Password Generator</h1>
+        <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg">
+            <h1 className="text-2xl font-bold mb-4 text-center">Password Generator</h1>
             <form onSubmit={generatePassword}>
-                <div className="form-group">
-                    <label htmlFor="passwordLength">Password Length:</label>
+                <div className="mb-4">
+                    <label htmlFor="passwordLength" className="block text-gray-700">Password Length:</label>
                     <input
                         id="passwordLength"
-                        className="form-control"
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         type="number"
                         min="4"
                         value={passwordLength}
@@ -46,39 +45,45 @@ const PasswordPostResult = () => {
                     />
                 </div>
 
-                <div className="form-group">
-                    <div className="form-check">
+                <div className="mb-4">
+                    <div className="flex items-center">
                         <input
                             id="includeSpecialChars"
-                            className="form-check-input"
+                            className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                             type="checkbox"
                             checked={includeSpecialChars}
                             onChange={(e) => setIncludeSpecialChars(e.target.checked)}
                         />
-                        <label className="form-check-label" htmlFor="includeSpecialChars">
+                        <label htmlFor="includeSpecialChars" className="ml-2 block text-gray-700">
                             Include Special Characters
                         </label>
                     </div>
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="label">Label:</label>
+                <div className="mb-4">
+                    <label htmlFor="label" className="block text-gray-700">Label:</label>
                     <input
                         id="label"
-                        className="form-control"
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         type="text"
                         value={label}
                         onChange={(e) => setLabel(e.target.value)}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">
+
+                <button
+                    type="submit"
+                    className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
                     Generate Password
                 </button>
-                <div className='password-current'>
+
+                <div className="mt-4 text-center text-gray-700">
                     Current Password: {passwordCurrent.password}
                 </div>
             </form>
         </div>
+
     );
 }
 
