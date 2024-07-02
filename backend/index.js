@@ -32,7 +32,6 @@ const passwordSchema = new mongoose.Schema({
 const Password = mongoose.model('values', passwordSchema);
 
 // Routes
-//sample
 app.get('/getData/:label', async(req, res) => {
     const { label } = req.params;
     const { password } = req.body;
@@ -41,7 +40,7 @@ app.get('/getData/:label', async(req, res) => {
         res.json({ password: findLabel[0].password });
     }
     catch (error) {
-        console.log(error);
+        return res.status(404).json({ message: "Not found" })
     }
 });
 
@@ -65,6 +64,13 @@ app.put('/submitData/:label', async (req, res) => {
     }
 });
 
+//deleting data
+app.delete('/deleteData/:label',async(req, res) => {
+    const { label } = req.params;
+    console.log(label);
+    const result = await Password.deleteOne({ label: label });
+    res.json({ deletedCount: result.deletedCount });
+})
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
