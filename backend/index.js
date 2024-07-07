@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
-
+import { fileURLToPath } from 'url';
 
 const app = express();
 const port = 5000;
@@ -42,9 +42,10 @@ const passwordSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
+app.use(express.static(path.join(__dirname, 'build')));
 const Password = mongoose.model('values', passwordSchema);
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 //main page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
