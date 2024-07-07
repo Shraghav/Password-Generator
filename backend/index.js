@@ -35,7 +35,7 @@ mongoose.connect(mongoURI, {
 
 
 //path
-const Password = mongoose.model('values', passwordSchema);
+// const Password = mongoose.model('values', passwordSchema);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -50,6 +50,8 @@ const passwordSchema = new mongoose.Schema({
         default: Date.now
     }
 });
+
+const Password = mongoose.model('values', passwordSchema);
 
 //main page
 app.get('/', (req, res) => {
