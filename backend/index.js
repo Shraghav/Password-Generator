@@ -15,7 +15,7 @@ app.use(json());
 app.use(bodyParser.json());
 
 // MongoDB Connection
-const mongoURI = 'mongodb://0.0.0.0:27017/PasswordGenerator';
+const mongoURI = 'mongodb://localhost:27017/PasswordGenerator';
 mongoose.connect(mongoURI, {
 }).then(() => {
     console.log('MongoDB connected successfully.');
