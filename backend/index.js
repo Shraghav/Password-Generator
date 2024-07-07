@@ -2,15 +2,17 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-// import bodyParser from 'body-parser';
-// import { passwordStrength } from 'check-password-strength'
+import bodyParser from 'body-parser';
+import path from 'path';
+
+
 const app = express();
 const port = 5000;
 
 // Middleware
 app.use(cors());
 app.use(json());
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // MongoDB Connection
 const mongoURI = 'mongodb://localhost:27017/PasswordGenerator';
@@ -44,9 +46,9 @@ const passwordSchema = new mongoose.Schema({
 const Password = mongoose.model('values', passwordSchema);
 
 //main page
-app.get('/', async (req, res) => {
-    res.render('Home',Home.js)
-})
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Routes
 app.get('/getData/:label', async(req, res) => {
