@@ -33,6 +33,14 @@ mongoose.connect(mongoURI, {
 // const isMatch = await bcrypt.compare("cool", hash);
 // console.log(isMatch);
 
+
+//path
+const Password = mongoose.model('values', passwordSchema);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, 'build')));
+
 // Password Schema
 const passwordSchema = new mongoose.Schema({
     password: String,
@@ -42,10 +50,7 @@ const passwordSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-app.use(express.static(path.join(__dirname, 'build')));
-const Password = mongoose.model('values', passwordSchema);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 //main page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
