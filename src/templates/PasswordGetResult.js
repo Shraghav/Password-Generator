@@ -12,12 +12,14 @@ const PasswordGetResult = () => {
             setPasswordfetch(word.data.password);
         }
         catch (error) {
-            console.error('Error fetching password:', error);
+            alert("Cannot fetch password!");
         }
     }
+    
     return (
         <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg">
             <form onSubmit={getPassword} className="mb-4">
+                <h1 className="text-2xl font-bold mb-4 text-center">Retrieve your password!</h1>
                 <div className="mb-4">
                     <label htmlFor="label" className="block text-gray-700">Label:</label>
                     <input
@@ -36,7 +38,8 @@ const PasswordGetResult = () => {
                 </button>
             </form>
             <div className='mt-4 text-center text-gray-700'>
-                Searched Password: {passwordfetch}
+                {`Searched Password: ${passwordfetch} ` || 
+                 `No such label exists`}
             </div>
         </div>
     )

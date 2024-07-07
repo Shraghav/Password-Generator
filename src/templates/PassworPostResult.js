@@ -31,7 +31,7 @@ const PasswordPostResult = () => {
     };
     return (
         <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg">
-            <h1 className="text-2xl font-bold mb-4 text-center">Password Generator</h1>
+            <h1 className="text-2xl font-bold mb-4 text-center">Generate your own Password</h1>
             <form onSubmit={generatePassword}>
                 <div className="mb-4">
                     <label htmlFor="passwordLength" className="block text-gray-700">Password Length:</label>

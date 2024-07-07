@@ -2,13 +2,14 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-
+import bodyParser from 'body-parser';
 const app = express();
 const port = 5000;
 
 // Middleware
 app.use(cors());
 app.use(json());
+app.use(bodyParser.json());
 
 // MongoDB Connection
 const mongoURI = 'mongodb://localhost:27017/PasswordGenerator';
@@ -18,6 +19,16 @@ mongoose.connect(mongoURI, {
 }).catch(err => {
     console.error('MongoDB connection error:', err);
 });
+ 
+// //hashing
+// import bcrypt from 'bcrypt';
+// const password = "Password";
+// const hash = await bcrypt.hash(password, 10);
+// const salt = bcrypt.genSaltSync(10);
+// const hash = await bcrypt.hash(password, 11);
+// console.log(hash);
+// const isMatch = await bcrypt.compare("cool", hash);
+// console.log(isMatch);
 
 // Password Schema
 const passwordSchema = new mongoose.Schema({
@@ -31,10 +42,16 @@ const passwordSchema = new mongoose.Schema({
 
 const Password = mongoose.model('values', passwordSchema);
 
+//main page
+app.get('/', async (req, res) => {
+    res.render('Home',Home.js)
+})
+
+
+
 // Routes
 app.get('/getData/:label', async(req, res) => {
     const { label } = req.params;
-    const { password } = req.body;
     try {
         const findLabel = await Password.find({ label: label });
         res.json({ password: findLabel[0].password });
@@ -67,8 +84,10 @@ app.put('/submitData/:label', async (req, res) => {
 //deleting data
 app.delete('/deleteData/:label',async(req, res) => {
     const { label } = req.params;
-    console.log(label);
     const result = await Password.deleteOne({ label: label });
+    if (result.deletedCount==0) {
+        alert("Nothing is deleted!");
+    }
     res.json({ deletedCount: result.deletedCount });
 })
 
