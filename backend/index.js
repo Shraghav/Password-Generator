@@ -3,7 +3,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 // import bodyParser from 'body-parser';
-import { passwordStrength } from 'check-password-strength'
+// import { passwordStrength } from 'check-password-strength'
 const app = express();
 const port = 5000;
 
@@ -48,8 +48,6 @@ app.get('/', async (req, res) => {
     res.render('Home',Home.js)
 })
 
-
-
 // Routes
 app.get('/getData/:label', async(req, res) => {
     const { label } = req.params;
@@ -87,7 +85,7 @@ app.delete('/deleteData/:label',async(req, res) => {
     const { label } = req.params;
     const result = await Password.deleteOne({ label: label });
     if (result.deletedCount==0) {
-        alert("Nothing is deleted!");
+        res.send("Cannot retrieve")
     }
     res.json({ deletedCount: result.deletedCount });
 })
