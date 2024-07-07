@@ -1,0 +1,18 @@
+@import "rsuite/dist/rsuite.css";
+
+#root{ padding: 10px; }
+
+/* Add this CSS to your style.css file */
+/* Add this CSS to your style.css file */
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Aligns items to the sides */
+    align-items: center;
+}
+
+.navbar-content {
+    flex-grow: 1;
+    /* text-align: right;    */
+    padding-right: 20px;
+}
+
