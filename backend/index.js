@@ -2,14 +2,15 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
+import { passwordStrength } from 'check-password-strength'
 const app = express();
 const port = 5000;
 
 // Middleware
 app.use(cors());
 app.use(json());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 // MongoDB Connection
 const mongoURI = 'mongodb://localhost:27017/PasswordGenerator';
@@ -90,6 +91,7 @@ app.delete('/deleteData/:label',async(req, res) => {
     }
     res.json({ deletedCount: result.deletedCount });
 })
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

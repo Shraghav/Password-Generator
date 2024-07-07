@@ -1,79 +1,27 @@
-// import PostResult from "../templates/PassworPostResult";
-// import DeleteResult from "../templates/PasswordDeleteResult"
-// import GetResult from "../templates/PasswordGetResult"
-// import UserCreate from "../templates/PasswordUserCreate"
-
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
-
-// const App = () => {
-//     const location = useLocation();
-
-//     const shouldShowLinks = location.pathname === '/';
-
-//     return (
-//         <div className="App">
-//             {shouldShowLinks && (
-//                 <ul className="App-header" style={{ textAlign: 'center', paddingLeft: 0, listStyle: 'none', display: 'flex', justifyContent: 'center' }}>
-//                     <li style={{ marginRight: '20px' }}>
-//                         <Link to="/postResult">
-//                             PostResult
-//                         </Link>
-//                     </li>
-//                     <li style={{ marginRight: '20px' }}>
-//                         <Link to="/deleteResult">
-//                             Delete Result
-//                         </Link>
-//                     </li>
-//                     <li style={{ marginRight: '20px' }}>
-//                         <Link to="/getResult">
-//                             Get Result
-//                         </Link>
-//                     </li>
-//                     <li>
-//                         <Link to="/userCreate">
-//                             Create User
-//                         </Link>
-//                     </li>
-//                 </ul>
-//             )}
-//             <Routes>
-//                 <Route path="/postResult" element={<PostResult />} />
-//                 <Route path="/deleteResult" element={<DeleteResult />} />
-//                 <Route path="/getResult" element={<GetResult />} />
-//                 <Route path="/userCreate" element={<UserCreate />} />
-//             </Routes>
-//         </div>
-//     );
-// };
-
-// const Root = () => (
-//     <Router>
-//         <App />
-//     </Router>
-// );
-
-// export default Root;
-
-
+//Essentials imports
 import React from 'react';
 import '../Style/style.css';
+import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 
+//Functionalities import
 import DeleteResult from "../templates/PasswordDeleteResult"
 import GetResult from "../templates/PasswordGetResult"
 import UserCreate from "../templates/PasswordUserCreate"
 import PostResult from "../templates/PassworPostResult";
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import StrengthChecker from '../templates/StrengthChecker';
+//rsuite library
 import { Sidenav, Nav, Toggle } from 'rsuite';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
 import TrashIcon from '@rsuite/icons/Trash';
 import ExpandOutlineIcon from '@rsuite/icons/ExpandOutline';
 import RandomIcon from '@rsuite/icons/Random';
 
+//Rendering code
 const Home = () => {
     const [expanded, setExpanded] = React.useState(true);
     const [activeKey, setActiveKey] = React.useState('1');
     return (
+        //nav bar starts
         <div className='navbar-container'>
         <div style={{ width: 240 }}>
             <Toggle
@@ -85,44 +33,50 @@ const Home = () => {
                 <Sidenav.Body>
                     <Nav activeKey={activeKey} onSelect={setActiveKey}>
                         <Nav.Item eventKey="1" icon={<RandomIcon />}>
-                         <Link to="/postResult">
+                         <NavLink id='post' to="/postResult">
                              Random Password
-                         </Link>
+                         </NavLink>
                         </Nav.Item>
-                            <Nav.Item eventKey="1" icon={<DashboardIcon />}>
-                                
-                                    <Link to="/getResult">
-                                        Retrieve Password
-                                    </Link>  
+                        <Nav.Item eventKey="1" icon={<DashboardIcon />}>
+                            <NavLink id='get' to="/getResult">
+                                    Retrieve Password
+                            </NavLink>  
                         </Nav.Item>    
                         <Nav.Item eventKey="1" icon={<ExpandOutlineIcon />}>
-                                    <Link to="/userCreate">
-                                        Own Password
-                                    </Link>                               
+                            <NavLink id='create' to="/userCreate">
+                                    Own Password
+                            </NavLink>                               
                         </Nav.Item>    
                         <Nav.Item eventKey="1" icon={<TrashIcon />}>
-                                
-                                    <Link to="/deleteResult">
-                                        Delete Password
-                                    </Link>     
+                            <NavLink id='delete' to="/deleteResult">
+                                    Delete Password
+                            </NavLink>     
+                        </Nav.Item>    
+                        <Nav.Item eventKey="1" icon={<TrashIcon />}>
+                            <NavLink id='strength' to="/strengthChecker">
+                                    Check Password Strength
+                            </NavLink>     
                         </Nav.Item>    
                     </Nav>
                 </Sidenav.Body>
                 <Sidenav.Toggle onToggle={expanded => setExpanded(expanded)} />
             </Sidenav> 
             </div>
+            {/* Routes obtained */}
             <div className='navbar-content'>
                 <Routes>
-                    <Route path="/postResult" element={<PostResult />} />
-                    <Route path="/deleteResult" element={<DeleteResult />} />
-                    <Route path="/getResult" element={<GetResult />} />
-                    <Route path="/userCreate" element={<UserCreate />} />
+                    <Route id='post' path="/postResult" element={<PostResult />} />
+                    <Route id='delete' path="/deleteResult" element={<DeleteResult />} />
+                    <Route id='get' path="/getResult" element={<GetResult />} />
+                    <Route id='create' path="/userCreate" element={<UserCreate />} />
+                    <Route id='strength' path="/strengthChecker" element={<StrengthChecker />} />
                 </Routes>
             </div>
         </div>
         
     );
 };
+//Rendering the routes
 const Root = () => (
     <Router>
         <Home />
