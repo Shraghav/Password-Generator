@@ -36,11 +36,6 @@ mongoose.connect(mongoURI, {
 
 //path
 // const Password = mongoose.model('values', passwordSchema);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-console.log(__dirname);
-app.use(express.static(path.join(__dirname, 'build')));
 
 // Password Schema
 const passwordSchema = new mongoose.Schema({
@@ -53,11 +48,6 @@ const passwordSchema = new mongoose.Schema({
 });
 
 const Password = mongoose.model('values', passwordSchema);
-
-//main page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 // Routes
 app.get('/getData/:label', async(req, res) => {
