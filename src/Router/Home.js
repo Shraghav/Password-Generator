@@ -9,57 +9,62 @@ import GetResult from "../templates/PasswordGetResult"
 import UserCreate from "../templates/PasswordUserCreate"
 import PostResult from "../templates/PassworPostResult";
 import StrengthChecker from '../templates/StrengthChecker';
+import Welcome from '../templates/Welcome';
+
 //rsuite library
-import { Sidenav, Nav, Toggle } from 'rsuite';
+import { Sidenav, Nav } from 'rsuite';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
 import TrashIcon from '@rsuite/icons/Trash';
 import ExpandOutlineIcon from '@rsuite/icons/ExpandOutline';
 import RandomIcon from '@rsuite/icons/Random';
+import TagLockIcon from '@rsuite/icons/TagLock';
+import PcIcon from '@rsuite/icons/Pc';
 
 //Rendering code
 const Home = () => {
-    const [expanded, setExpanded] = React.useState(true);
     const [activeKey, setActiveKey] = React.useState('1');
     return (
         //nav bar starts
+        <div>
         <div className='navbar-container'>
         <div style={{ width: 240 }}>
-            <Toggle
-                onChange={setExpanded}
-                checked={expanded}
-            />
-            <hr />
-            <Sidenav expanded={expanded} defaultOpenKeys={['3', '4']}>
+            <br></br>
+            <Sidenav defaultOpenKeys={['3', '4']}>
                 <Sidenav.Body>
                     <Nav activeKey={activeKey} onSelect={setActiveKey}>
                         <Nav.Item eventKey="1" icon={<RandomIcon />}>
-                         <NavLink id='post' to="/postResult">
+                         <NavLink id='post' to="/postResult" style={{ textDecoration: 'none' }}>
                              Random Password
                          </NavLink>
                         </Nav.Item>
                         <Nav.Item eventKey="1" icon={<DashboardIcon />}>
-                            <NavLink id='get' to="/getResult">
+                                    <NavLink id='get' to="/getResult" style={{ textDecoration: 'none' }}>
                                     Retrieve Password
                             </NavLink>  
                         </Nav.Item>    
                         <Nav.Item eventKey="1" icon={<ExpandOutlineIcon />}>
-                            <NavLink id='create' to="/userCreate">
+                                    <NavLink id='create' to="/userCreate" style={{ textDecoration: 'none' }}>
                                     Own Password
                             </NavLink>                               
                         </Nav.Item>    
                         <Nav.Item eventKey="1" icon={<TrashIcon />}>
-                            <NavLink id='delete' to="/deleteResult">
+                                    <NavLink id='delete' to="/deleteResult" style={{ textDecoration: 'none' }}>
                                     Delete Password
                             </NavLink>     
                         </Nav.Item>    
-                        <Nav.Item eventKey="1" icon={<TrashIcon />}>
-                            <NavLink id='strength' to="/strengthChecker">
+                        <Nav.Item eventKey="1" icon={<TagLockIcon />}>
+                                    <NavLink id='strength' to="/strengthChecker" style={{ textDecoration: 'none' }}>
                                     Check Password Strength
+                            </NavLink>     
+                        </Nav.Item>    
+                        <Nav.Item eventKey="1" icon={<PcIcon />}>
+                                    <NavLink id='strength' to="/" style={{ textDecoration: 'none' }}>
+                                    About
                             </NavLink>     
                         </Nav.Item>    
                     </Nav>
                 </Sidenav.Body>
-                <Sidenav.Toggle onToggle={expanded => setExpanded(expanded)} />
+                
             </Sidenav> 
             </div>
             {/* Routes obtained */}
@@ -70,7 +75,9 @@ const Home = () => {
                     <Route id='get' path="/getResult" element={<GetResult />} />
                     <Route id='create' path="/userCreate" element={<UserCreate />} />
                     <Route id='strength' path="/strengthChecker" element={<StrengthChecker />} />
+                    <Route id='welcome' path="/" element={<Welcome />} />
                 </Routes>
+            </div>
             </div>
         </div>
         
@@ -79,6 +86,7 @@ const Home = () => {
 //Rendering the routes
 const Root = () => (
     <Router>
+        {/* <Welcome/> */}
         <Home />
     </Router>
 );

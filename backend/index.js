@@ -3,8 +3,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import path from 'path';
-import { fileURLToPath } from 'url';
+
 
 const app = express();
 const port = 5000;

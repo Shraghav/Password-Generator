@@ -21,7 +21,7 @@ const PasswordGetResult = () => {
             <form onSubmit={getPassword} className="mb-4">
                 <h1 className="text-2xl font-bold mb-4 text-center">Retrieve your password!</h1>
                 <div className="mb-4">
-                    <label htmlFor="label" className="block text-gray-700">Label:</label>
+                    <label htmlFor="label" className="block text-gray-700">Name:</label>
                     <input
                         id="label"
                         type="text"
@@ -38,8 +38,7 @@ const PasswordGetResult = () => {
                 </button>
             </form>
             <div className='mt-4 text-center text-gray-700'>
-                {`Searched Password: ${passwordfetch} ` || 
-                 `No such label exists`}
+                {`Searched Password: ${passwordfetch} `}
             </div>
         </div>
     )
