@@ -7,10 +7,13 @@ input {
   padding: 10px;
   font-size: 16px;
   margin-bottom: 20px;
+  width: 400px;
 }
-
+.passwordStrength{
+  text-align: center;
+}
 .progress-bar {
-  width: 100%;
+  width: 96.5%;
   height: 20px;
   background-color: #e0e0e0;
   border-radius: 5px;

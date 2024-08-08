@@ -14,17 +14,19 @@ const PasswordStrengthChecker = () => {
 
     const calculateStrength = (password) => {
         const lengthCriteria = password.length >= 8;
+        const lengthCriteriaMax = password.length >= 13;
         const upperCaseCriteria = /[A-Z]/.test(password);
         const lowerCaseCriteria = /[a-z]/.test(password);
         const numberCriteria = /[0-9]/.test(password);
         const specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
         let strength = 0;
+        if (lengthCriteriaMax) strength += 20;
         if (lengthCriteria) strength += 20;
-        if (upperCaseCriteria) strength += 20;
-        if (lowerCaseCriteria) strength += 20;
-        if (numberCriteria) strength += 20;
-        if (specialCharCriteria) strength += 20;
+        if (upperCaseCriteria && lengthCriteria) strength += 20;
+        if (lowerCaseCriteria && lengthCriteria) strength += 20;
+        if (numberCriteria && lengthCriteria) strength += 20;
+        if (specialCharCriteria && lengthCriteria) strength += 20;
 
         setCriteria({
             length: lengthCriteria,
@@ -44,19 +46,19 @@ const PasswordStrengthChecker = () => {
     };
 
     return (
-        <div className="App">
+        <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg">
             <h1 className="text-2xl font-bold mb-4 text-center">Password Strength Checker</h1>
             <input
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder="Enter your password"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 w-80 block p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             <div className="progress-bar">
                 <div className="progress" style={{ width: `${strength}%` }}></div>
             </div>
-            <div>Password Strength: {strength}%</div>
+            <div className='passwordStrength'>Password Strength: {strength}%</div>
             <div className="criteria">
                 <p style={{ color: criteria.length ? 'green' : 'red' }}>
                     Minimum 8 characters
